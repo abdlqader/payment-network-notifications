@@ -18,13 +18,9 @@ public class Notification {
     @NotNull(message = "Notification code is required")
     @Column(unique = true, nullable = false)
     private String code;
-    @NotNull(message = "Notification title is required")
-    @Column(name = "title", length = 255, nullable = false)
-    private String title;
-    @NotNull(message = "Notification description is required")
-    @Lob
-    @Column(name = "description", length = 512, nullable = false)
-    private String description;
+    @NotNull(message = "Notification network is required")
+    @Column(nullable = false)
+    private NotificationNetwork network;
     @NotNull(message = "Notification type is required")
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -38,6 +34,9 @@ public class Notification {
     enum NotificationType {
         MAN, DI, PISI;
     }
+    enum NotificationNetwork {
+        MC, VISA, JCB, EBC
+    }
 
     public Notification() {
     }
@@ -48,14 +47,6 @@ public class Notification {
 
     public String getCode() {
         return code;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public NotificationType getType() {

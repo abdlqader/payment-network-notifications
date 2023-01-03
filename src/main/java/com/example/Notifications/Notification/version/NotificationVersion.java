@@ -3,6 +3,7 @@ package com.example.Notifications.Notification.version;
 import com.example.Notifications.Notification.Notification;
 import com.example.Notifications.Pdf.Pdf;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -29,7 +30,15 @@ public class NotificationVersion {
     private ActionTypes action;
     @Enumerated(EnumType.STRING)
     private StatusTypes status;
+    @NotNull(message = "Notification title is required")
+    @Column(name = "title", length = 255, nullable = false)
+    private String title;
+    @NotNull(message = "Notification description is required")
+    @Lob
+    @Column(name = "description", length = 512, nullable = false)
+    private String description;
     @CreatedDate
+    @Column(updatable = false)
     private Date createdAt;
     @LastModifiedDate
     private Date updatedAt;
@@ -40,6 +49,5 @@ public class NotificationVersion {
         Planned, Warned, Delayed, Applied
     }
 
-    public NotificationVersion() {
-    }
+    public NotificationVersion() {}
 }
