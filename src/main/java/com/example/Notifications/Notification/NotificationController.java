@@ -21,10 +21,9 @@ public class NotificationController {
         this.notificationService = notification;
     }
 
-    @GetMapping("/{notificationId}")
-    public Notification getNotification(@PathVariable(value="notificationId") int notificationId) {
-        System.out.println(notificationId);
-        return new Notification();
+    @GetMapping("/{id}")
+    public NotificationRequest getNotification(@PathVariable @Min(1) int id) {
+        return this.notificationService.getNotification(id);
     }
 
     @GetMapping("/list")

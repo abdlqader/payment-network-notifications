@@ -20,7 +20,7 @@ public class NotificationVersion {
             strategy = GenerationType.AUTO
     )
     private long id;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Notification notification;
     //TODO: version should be auto incremented based on notification entity.
@@ -28,6 +28,7 @@ public class NotificationVersion {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "pdf_id", referencedColumnName = "id")
     private Pdf pdf;
+    @Column(nullable = false)
     private Date publishedAt;
     private Date effectiveAt;
     @Enumerated(EnumType.STRING)

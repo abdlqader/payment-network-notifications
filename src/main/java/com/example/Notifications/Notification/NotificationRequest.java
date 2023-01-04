@@ -3,6 +3,7 @@ package com.example.Notifications.Notification;
 import com.example.Notifications.Markers.OnCreate;
 import com.example.Notifications.Markers.OnUpdate;
 import com.example.Notifications.Notification.version.NotificationVersion;
+import com.example.Notifications.Pdf.Pdf;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -120,5 +121,19 @@ public class NotificationRequest {
 
     public void setPublishedAt(Date publishedAt) {
         this.publishedAt = publishedAt;
+    }
+    public NotificationRequest(){};
+    public NotificationRequest(Notification notification,NotificationVersion version, Pdf pdf){
+        this.setId(version.getId());
+        this.setCode(notification.getCode());
+        this.setNetwork(notification.getNetwork());
+        this.setType(notification.getType());
+        this.setAction(version.getAction());
+        this.setTitle(version.getTitle());
+        this.setDescription(version.getDescription());
+        this.setEffectiveAt(version.getEffectiveAt());
+        this.setPublishedAt(version.getPublishedAt());
+        this.setStatus(version.getStatus());
+        this.setLink(pdf.getLink());
     }
 }

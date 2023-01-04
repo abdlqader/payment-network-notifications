@@ -25,6 +25,15 @@ public class NotificationService {
         this.notificationVersionRepo = notificationVersionRepo;
         this.pdfRepo = pdfRepo;
     }
+    public NotificationRequest getNotification(long id){
+        try {
+            NotificationVersion notificationVersion = Optional.of(this.notificationVersionRepo.findById(id)).get().orElseThrow(IllegalArgumentException::new);
+            NotificationRequest response = new NotificationRequest(notificationVersion.getNotification(),notificationVersion,notificationVersion.getPdf());
+            return response;
+        }catch (DataIntegrityViolationException e){
+            throw new DataIntegrityException();
+        }
+    }
     public NotificationRequest createNotification(NotificationRequest payload) throws DataIntegrityViolationException{
         try {
             //notification creation
