@@ -1,13 +1,17 @@
 package com.example.Notifications.Notification;
 
+import com.example.Notifications.Markers.OnCreate;
+import com.example.Notifications.Markers.OnUpdate;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@Validated
 @RequestMapping(path = "notification")
 public class NotificationController {
     private final NotificationService notificationService;
@@ -28,18 +32,20 @@ public class NotificationController {
         return List.of(new Notification());
     }
 
+    @Validated(OnCreate.class)
     @PostMapping("")
-    public Notification createNotification(@Valid @RequestBody Notification payload) {
-        return this.notificationService.createOrUpdateNotification(payload);
+    public NotificationRequest createNotification(@Valid @RequestBody NotificationRequest payload) {
+        return this.notificationService.createNotification(payload);
     }
-    //TODO: if id is not available, Unique Constrain error will be thrown. this should be handled properly or a new notification will be created
+    @Validated(OnUpdate.class)
     @PutMapping("")
-    public Notification updateNotification(@Valid @RequestBody Notification payload) {
-        return this.notificationService.createOrUpdateNotification(payload);
+    public NotificationRequest updateNotification(@Valid @RequestBody NotificationRequest payload) {
+        return this.notificationService.updateNotification(payload);
     }
 
     @DeleteMapping("/{id}")
     public boolean deleteNotification(@PathVariable @Min(1) long id) {
         return this.notificationService.deleteNotification(id);
     }
+
 }
