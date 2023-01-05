@@ -46,5 +46,4 @@ public class NotificationController {
     public boolean deleteNotification(@PathVariable @Min(1) long id) {
         return this.notificationService.deleteNotification(id);
     }
-
 }

@@ -1,7 +1,5 @@
 package com.example.Notifications.Notification;
 
-import com.example.Notifications.Exceptions.DataIntegrityException;
-import com.example.Notifications.Exceptions.DataNotFoundException;
 import com.example.Notifications.Notification.version.NotificationVersion;
 import com.example.Notifications.Notification.version.NotificationVersionRepository;
 import com.example.Notifications.Pdf.Pdf;
@@ -26,13 +24,9 @@ public class NotificationService {
         this.pdfRepo = pdfRepo;
     }
     public NotificationRequest getNotification(long id){
-        try {
-            NotificationVersion notificationVersion = Optional.of(this.notificationVersionRepo.findById(id)).get().orElseThrow(IllegalArgumentException::new);
-            NotificationRequest response = new NotificationRequest(notificationVersion.getNotification(),notificationVersion,notificationVersion.getPdf());
-            return response;
-        }catch (DataIntegrityViolationException e){
-            throw new DataIntegrityException();
-        }
+        NotificationVersion notificationVersion = Optional.of(this.notificationVersionRepo.findById(id)).get().orElseThrow(IllegalArgumentException::new);
+        NotificationRequest response = new NotificationRequest(notificationVersion.getNotification(),notificationVersion,notificationVersion.getPdf());
+        return response;
     }
     public NotificationRequest createNotification(NotificationRequest payload) throws DataIntegrityViolationException{
         try {
@@ -51,7 +45,7 @@ public class NotificationService {
             payload.setId(notificationVersion.getId());
             return payload;
         }catch (DataIntegrityViolationException e){
-            throw new DataIntegrityException();
+            throw new DataIntegrityViolationException("Unique Constrain error : Duplicate Code");
         }
     }
     public NotificationRequest updateNotification(NotificationRequest payload) throws DataIntegrityViolationException{
@@ -66,7 +60,7 @@ public class NotificationService {
             this.notificationVersionRepo.save(notificationVersionUpdated);
             return payload;
         }catch (DataIntegrityViolationException e){
-            throw new DataIntegrityException();
+            throw new IllegalArgumentException();
         }
     }
     public boolean deleteNotification(long id) throws EmptyResultDataAccessException {
@@ -74,7 +68,7 @@ public class NotificationService {
             this.notificationRepo.deleteById(id);
             return true;
         }catch (EmptyResultDataAccessException e){
-            throw new DataNotFoundException();
+            throw new IllegalArgumentException();
         }
     }
 }
