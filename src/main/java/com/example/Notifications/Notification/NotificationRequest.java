@@ -7,9 +7,12 @@ import com.example.Notifications.Pdf.Pdf;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
+import java.time.LocalDate;
+@Data
+@NoArgsConstructor
 public class NotificationRequest {
     @Min(value = 0, groups = OnCreate.class)
     @Max(value = 0, groups = OnCreate.class)
@@ -31,98 +34,9 @@ public class NotificationRequest {
     @NotNull(message = "Notification link is required")
     private String link;
     @NotNull(message = "Notification effective date is required")
-    private Date effectiveAt;
+    private LocalDate effectiveAt;
     @NotNull(message = "Notification published date is required")
-    private Date publishedAt;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public Notification.NotificationNetwork getNetwork() {
-        return network;
-    }
-
-    public void setNetwork(Notification.NotificationNetwork network) {
-        this.network = network;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Notification.NotificationType getType() {
-        return type;
-    }
-
-    public void setType(Notification.NotificationType type) {
-        this.type = type;
-    }
-
-    public NotificationVersion.NotificationAction getAction() {
-        return action;
-    }
-
-    public void setAction(NotificationVersion.NotificationAction action) {
-        this.action = action;
-    }
-
-    public NotificationVersion.NotificationStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(NotificationVersion.NotificationStatus status) {
-        this.status = status;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
-    public Date getEffectiveAt() {
-        return effectiveAt;
-    }
-
-    public void setEffectiveAt(Date effectiveAt) {
-        this.effectiveAt = effectiveAt;
-    }
-
-    public Date getPublishedAt() {
-        return publishedAt;
-    }
-
-    public void setPublishedAt(Date publishedAt) {
-        this.publishedAt = publishedAt;
-    }
-    public NotificationRequest(){};
+    private LocalDate publishedAt;
     public NotificationRequest(Notification notification,NotificationVersion version, Pdf pdf){
         this.setId(version.getId());
         this.setCode(notification.getCode());

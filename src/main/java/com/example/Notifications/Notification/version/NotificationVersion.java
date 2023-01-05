@@ -4,15 +4,12 @@ import com.example.Notifications.Notification.Notification;
 import com.example.Notifications.Notification.NotificationRequest;
 import com.example.Notifications.Pdf.Pdf;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table
@@ -33,8 +30,8 @@ public class NotificationVersion {
     @JoinColumn(name = "pdf_id", referencedColumnName = "id")
     private Pdf pdf;
     @Column(nullable = false)
-    private Date publishedAt;
-    private Date effectiveAt;
+    private LocalDate publishedAt;
+    private LocalDate effectiveAt;
     @Enumerated(EnumType.STRING)
     private NotificationAction action;
     @Enumerated(EnumType.STRING)
@@ -46,9 +43,9 @@ public class NotificationVersion {
     private String description;
     @CreationTimestamp
     @Column(updatable = false)
-    private Date createdAt;
+    private LocalDate createdAt;
     @UpdateTimestamp
-    private Date updatedAt;
+    private LocalDate updatedAt;
     public enum NotificationAction {
         New, Notified, Study, Ongoing, Completed, NA
     }
@@ -56,7 +53,7 @@ public class NotificationVersion {
         Planned, Warned, Delayed, Applied
     }
 
-    public NotificationVersion(Date publishedAt, NotificationAction action, String title, String description) {
+    public NotificationVersion(LocalDate publishedAt, NotificationAction action, String title, String description) {
         this.publishedAt = publishedAt;
         this.action = action;
         this.title = title;
