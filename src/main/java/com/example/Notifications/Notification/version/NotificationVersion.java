@@ -5,6 +5,8 @@ import com.example.Notifications.Notification.NotificationRequest;
 import com.example.Notifications.Pdf.Pdf;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
@@ -14,6 +16,8 @@ import java.util.Date;
 
 @Entity
 @Table
+@Data
+@NoArgsConstructor
 public class NotificationVersion {
     @Id
     @GeneratedValue(
@@ -52,109 +56,11 @@ public class NotificationVersion {
         Planned, Warned, Delayed, Applied
     }
 
-    public NotificationVersion() {}
-
     public NotificationVersion(Date publishedAt, NotificationAction action, String title, String description) {
         this.publishedAt = publishedAt;
         this.action = action;
         this.title = title;
         this.description = description;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Notification getNotification() {
-        return notification;
-    }
-
-    public void setNotification(Notification notification) {
-        this.notification = notification;
-    }
-
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
-    }
-
-    public Pdf getPdf() {
-        return pdf;
-    }
-
-    public void setPdf(Pdf pdf) {
-        this.pdf = pdf;
-    }
-
-    public Date getPublishedAt() {
-        return publishedAt;
-    }
-
-    public void setPublishedAt(Date publishedAt) {
-        this.publishedAt = publishedAt;
-    }
-
-    public Date getEffectiveAt() {
-        return effectiveAt;
-    }
-
-    public void setEffectiveAt(Date effectiveAt) {
-        this.effectiveAt = effectiveAt;
-    }
-
-    public NotificationAction getAction() {
-        return action;
-    }
-
-    public void setAction(NotificationAction action) {
-        this.action = action;
-    }
-
-    public NotificationStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(NotificationStatus status) {
-        this.status = status;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     public NotificationVersion updatingValues(NotificationRequest payload){
