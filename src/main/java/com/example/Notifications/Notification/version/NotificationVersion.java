@@ -3,6 +3,7 @@ package com.example.Notifications.Notification.version;
 import com.example.Notifications.Notification.Notification;
 import com.example.Notifications.Notification.NotificationRequest;
 import com.example.Notifications.Pdf.Pdf;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table
@@ -43,9 +45,11 @@ public class NotificationVersion {
     private String description;
     @CreationTimestamp
     @Column(updatable = false)
-    private LocalDate createdAt;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime createdAt;
     @UpdateTimestamp
-    private LocalDate updatedAt;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime updatedAt;
     public enum NotificationAction {
         New, Notified, Study, Ongoing, Completed, NA
     }
